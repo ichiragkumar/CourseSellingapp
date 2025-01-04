@@ -32,6 +32,10 @@ const courseSchema = new mongoose.Schema({
         type: Boolean,
         default: true,
     },
+    adminEmail:{
+        type:String,
+        required:true
+    },
 
 
 });
