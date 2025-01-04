@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+import { Sun, Moon } from 'lucide-react';
 import Home from './components/Home';
 import UserDashboard from './components/UserDashboard';
 import AdminDashboard from './components/AdminDashboard';
@@ -7,12 +8,17 @@ import Login from './components/Login';
 import Signup from './components/Signup';
 import Courses from './components/Courses';
 
-
-
 function App() {
-  const [darkMode, setDarkMode] = useState(false);
+  const [darkMode, setDarkMode] = useState(() => {
+    if (typeof window !== 'undefined') {
+      const savedTheme = localStorage.getItem('theme');
+      return savedTheme === 'dark';
+    }
+    return window.matchMedia('(prefers-color-scheme: dark)').matches;
+  });
 
   useEffect(() => {
+    localStorage.setItem('theme', darkMode ? 'dark' : 'light');
     if (darkMode) {
       document.documentElement.classList.add('dark');
     } else {
@@ -43,12 +49,13 @@ function App() {
                 </Link>
                 <button
                   onClick={() => setDarkMode(!darkMode)}
-                  className="ml-4 p-2 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300"
+                  className="ml-4 p-2 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors duration-200"
+                  aria-label="Toggle dark mode"
                 >
                   {darkMode ? (
-                      <h2>hii dark</h2>
+                    <Sun className="w-5 h-5" />
                   ) : (
-                      <h3>hii light</h3>
+                    <Moon className="w-5 h-5" />
                   )}
                 </button>
               </div>
@@ -72,4 +79,3 @@ function App() {
 }
 
 export default App;
-

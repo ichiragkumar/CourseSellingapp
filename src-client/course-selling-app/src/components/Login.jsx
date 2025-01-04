@@ -19,6 +19,7 @@ function Login() {
 
     try {
       const response = await axios.post('http://localhost:3003/api/v1/login', { email, password });
+      console.log(response.data);
       localStorage.setItem('token', response.data.token);
       localStorage.setItem('email', email);
       navigate('/user');
@@ -72,4 +73,5 @@ function Login() {
 }
 
 export default Login;
+
 

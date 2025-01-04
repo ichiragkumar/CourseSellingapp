@@ -8,10 +8,10 @@ function UserDashboard() {
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-          if(!localStorage.getItem('token') || !localStorage.getItem('email')){
+        if(!localStorage.getItem('token') || !localStorage.getItem('email')){
             alert("Please login first");
             return;
-          }
+        }
         const token = localStorage.getItem('token');
         const email = localStorage.getItem('email');
 
@@ -30,8 +30,19 @@ function UserDashboard() {
 
     const fetchMyCourses = async () => {
       try {
+
+        if(!localStorage.getItem('token') || !localStorage.getItem('email')){
+          alert("Please login first");
+          return;
+      }
+      const token = localStorage.getItem('token');
+      const email = localStorage.getItem('email');
+
+
         const response = await axios.get('http://localhost:3003/api/v1/my-courses', {
-          headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
+          headers: { Authorization: `Bearer ${token}`,
+          useremail: email
+        }
         });
         setCourses(response.data);
       } catch (error) {
