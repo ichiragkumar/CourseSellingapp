@@ -19,6 +19,10 @@ const courseSchema = new mongoose.Schema({
         type: Number,
         required: true,
     },
+    publishDate: {
+        type: Number,
+        required: true,
+    },
     courseType: {
         type: String,
         enum:COURSE_TYPES,

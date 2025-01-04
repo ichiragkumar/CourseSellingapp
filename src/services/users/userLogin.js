@@ -1,13 +1,13 @@
 
 
 
-import User from "../models/userSchema.js";
+import User from "../../models/userSchema.js";
 import dotenv from "dotenv"; 
 import jwt from "jsonwebtoken";
 dotenv.config();
 
 const JWT_SECRET = process.env.JWT_SECRET;
-export const Login = async (req, res) => {
+export const UserLogin = async (req, res) => {
   const { email, password } = req.body;
   try {
     const user = await User.findOne({ email, password });

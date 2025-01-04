@@ -1,4 +1,15 @@
 import mongoose from "mongoose";
+
+const MyCourses = new mongoose.Schema({
+    courseId: {
+        type: String,
+        required: true,
+    },
+    purchaseDate: {
+        type: Number,
+        required: true,
+    },
+});
 const userSchema = new mongoose.Schema({
     name: {
         type: String,
@@ -18,6 +29,10 @@ const userSchema = new mongoose.Schema({
         type: String,
         default: "USER",
         enum: ["ADMIN", "USER"],
+    },
+    myCourses: {
+        type: [MyCourses],
+        default: [],
     },
 },{
     timestamps: true,
