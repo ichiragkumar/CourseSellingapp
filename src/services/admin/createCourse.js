@@ -6,7 +6,9 @@ export const CreateCourse = async (req, res) => {
     if (!useremail) {
         return res.status(400).json({ message: "Email is required" });
     }
+
     const adminDocument = await Admin.findOne({ email:useremail });
+
     if(!adminDocument){
         return res.status(400).json({ message: "User not found" });
     }
