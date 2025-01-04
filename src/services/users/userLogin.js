@@ -11,16 +11,20 @@ export const UserLogin = async (req, res) => {
   const { email, password } = req.body;
   try {
     const user = await User.findOne({ email, password });
-    if (!user) {
-      return res.status(400).json({ message: "Invalid Credentials" });
-    }
+    if (!user) return res.status(400).json({ message: "Invalid Credentials" });
+     const token = jwt.sign(
+          { 
+              id: user._id,
+              role: user.role,
+              iat: Math.floor(Date.now() / 1000)
+          }, 
+          process.env.JWT_SECRET,
+          { expiresIn: '24h' }
+      );
+    res.status(200).json({ token });
 
-    if(user.role === "ADMIN"){
-        const token = jwt.sign({ id: user._id },JWT_SECRET);
-        res.status(200).json({ token });
-        return;
-    }
-    res.status(200).json(user);
+   
+
   } catch (error) {
     res.status(400).json({ message: error.message });
   }

@@ -16,13 +16,15 @@ export const AdminLogin = async (req, res) => {
       return res.status(400).json({ message: "Invalid Credentials" });
     }
 
-    const payload = {
-      id: user.id,
-      email: user.email,
-    };
-    const token = jwt.sign(payload, JWT_SECRET, {
-      expiresIn: 86400,
-    });
+    const token = jwt.sign(
+      { 
+          id: user._id,
+          role: user.role,
+          iat: Math.floor(Date.now() / 1000)
+      }, 
+      process.env.JWT_SECRET,
+      { expiresIn: '24h' }
+  );
     res.status(200).json({ token });
 
   } catch (error) {
