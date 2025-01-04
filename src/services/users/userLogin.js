@@ -17,7 +17,6 @@ export const UserLogin = async (req, res) => {
 
     if(user.role === "ADMIN"){
         const token = jwt.sign({ id: user._id },JWT_SECRET);
-        console.log(token);
         res.status(200).json({ token });
         return;
     }

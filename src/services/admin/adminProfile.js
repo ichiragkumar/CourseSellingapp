@@ -8,7 +8,6 @@ export const AdminProfile = async (req, res) => {
     }
     try {
         const adminDocument = await Admin.findOne({ email:useremail });
-        console.log("found", adminDocument);
         if(!adminDocument){
             return res.status(400).json({ message: "Admin not found" });
         }

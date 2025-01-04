@@ -13,7 +13,6 @@ export const UserPurchase = async (req, res) => {
 
 
     try {
-        console.log(courseId);
         const course = await Course.findById(courseId);
         if(!course || !course.isActive){
             return res.status(400).json({ message: "Course Does not exist" });
