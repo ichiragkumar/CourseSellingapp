@@ -1,0 +1,35 @@
+name: PR Auto Comment
+on:
+  pull_request:
+    types: [opened]
+
+jobs:
+  auto-comment:
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Comment on PR
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const prBody = `👋 Thanks for opening this PR!
+
+            Please ensure you have:
+            - [ ] Added appropriate tests
+            - [ ] Updated documentation if needed
+            - [ ] Followed the project's coding standards
+            - [ ] Added necessary comments for complex code
+
+            Our team will review this PR soon. Feel free to ping @ichiragkumar if you need any help.`;
+            
+            github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              body: prBody
+            });
