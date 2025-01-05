@@ -34,10 +34,12 @@ const MyCreatedCourses = new mongoose.Schema({
     },
     totalPurchased:{
         type: Number,
+        default: 0,
         required: true,
     },
     totalMoneyEarned:{
         type: Number,
+        default: 0,
         required: true,
     },
     purchaserDetails :{
